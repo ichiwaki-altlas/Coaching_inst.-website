@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
+import SignIn from './components/SignIn'
+import ChallengeList from './components/ChallengeList'
+import ChallengeView from './components/ChallengeView'
+import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme  } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#D83063'
+    },
+    secondary: {
+      main: '#304FFE'
+    }
+  }
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact children={<SignIn />} />
+          <Route path="/challenges" children={<ChallengeList />} />
+          <Route path="/challenge/view/:id" children={<ChallengeView />} />
+          {/* <Route path="/challenge/edit/:id" children={<ChallengeEdit />} /> */}
+        </Switch>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
